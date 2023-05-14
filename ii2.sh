@@ -1,5 +1,6 @@
 #!/bin/bash
 #ii.0.8.1.8
+
 # Check if index.html exists
 if [ -f "index.html" ]; then
 echo "index.html found. Loading existing page..."
@@ -39,6 +40,11 @@ while read line; do
 
 # Skip already checked links
 if grep -Fxq "$line" checked.txt; then
+continue
+fi
+
+# Skip already checked offline links
+if grep -Fxq "$line" checked-offline.txt; then
 continue
 fi
 
