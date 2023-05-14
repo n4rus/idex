@@ -1,0 +1,47 @@
+html {
+    background-color: black;
+    height:100%;
+    max-width: 100%;
+    background-repeat: no-repeat;
+    background-color: black;
+}
+
+body {
+    align: center;
+    align-text: center;
+    background-color: black;
+}
+
+p {
+    align: center;
+    align-text: center;
+    color: white; /* grey; */
+}
+
+h4 {
+    color: silver;
+    align: center;
+    align-text: center;
+}
+
+td {
+    align: center;
+    align-text: center;
+    color: white;
+}
+
+th {
+    align: center;
+    align-text: center;
+    color: white;
+}
+	}
+
+a:visited {
+    color: silver;
+}
+
+a:link {
+    text-decoration: none;
+    color: Green;
+}
