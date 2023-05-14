@@ -1,5 +1,5 @@
 #!/bin/bash
-#ii0.8.1.6
+#ii.0.8.1.8
 # Check if index.html exists
 if [ -f "index.html" ]; then
 echo "index.html found. Loading existing page..."
@@ -24,12 +24,15 @@ echo "checked.txt not found. Creating a new checked list..."
 echo "checked.txt" > checked.txt
 fi
 
-# Check if list exists
-if grep -Fq "<ul>" index.html; then
-echo "List found. Appending new links..."
+##
+# Check if checked-offline.txt exists
+if [ -f " checked-offline.txt" ]; then
+echo " checked-offline.txt.txt found. Loading existing checked list..."
 else
-echo "<ul>" >> index.html
+echo " checked-offline.txt not found. Creating a new checked list..."
+echo " checked-offline.txt" > checked-offline.txt
 fi
+##
 
 # Read the list.txt file
 while read line; do
@@ -40,7 +43,7 @@ continue
 fi
 
 # Probe the status of websites
-wget --timeout=3 --connect-timeout=3 --tries=1 --spider --verbose $line
+wget --timeout=3 --connect-timeout=3 --tries=1 --spider --verbose --waitretry=1 $line
 
 # If the site is online, index it as a link
 if [ $? -eq 0 ]; then
@@ -49,11 +52,10 @@ echo "<li><a href="$line">$line</a></li>" >> index.html
 # Add the link to the checked list
 echo "$line" >> checked.txt
 
-# Move to the next link if connection times out
+# If the site is offline, add it to the checked-offline list
 else
+echo "$line" >> checked-offline.txt
 echo "Connection timed out. Moving to the next link..."
 fi
 
 done < list.txt
-
-
